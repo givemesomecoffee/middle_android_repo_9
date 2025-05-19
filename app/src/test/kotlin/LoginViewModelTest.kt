@@ -50,6 +50,8 @@ class LoginViewModelTest {
     @Test
     fun `login with valid data sets Loading then Success`() = runTest {
         viewModel.login(EMAIL, PASSWORD)
+        testDispatcher.scheduler.runCurrent()
+        assertEquals(LoginScreenState.Loading, viewModel.state.value)
         testDispatcher.scheduler.advanceUntilIdle()
         assertEquals(LoginScreenState.Success, viewModel.state.value)
     }
